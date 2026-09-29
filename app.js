@@ -304,8 +304,11 @@ async function viewNewExam(preselect) {
     const have = new Set((photos || []).filter((p) => p.subject_id === s.id).map((p) => p.topic_id));
     const miss = s.topics.filter((t) => t.photo_request && !have.has(t.id));
     document.getElementById('miss').innerHTML = miss.length
-      ? `<div class="notes-inline"><b>${T(s.lang, 'Attach your notes first', 'Primero adjunta tus apuntes')}</b> ${T(s.lang, '— the system still needs:', '— el sistema todavía necesita:')}<ul>${miss.map((t) => `<li>${esc(t.photo_request)}</li>`).join('')}</ul><a class="btn sm" href="#/notes/${s.id}">${T(s.lang, 'Attach notes', 'Adjuntar apuntes')}</a> <span class="small muted">${T(s.lang, 'or start anyway.', 'o empieza de todos modos.')}</span></div>`
+      ? `<div class="notes-inline"><b>${T(s.lang, 'Notes missing', 'Faltan apuntes')}</b> ${T(s.lang, '— the system asks for:', '— el sistema pide:')}<ul>${miss.map((t) => `<li>${esc(t.photo_request)}</li>`).join('')}</ul>
+          <p class="small muted">${T(s.lang, 'You can still take the exam now: the questions come from your study guide.', 'Puedes hacer el examen ahora: las preguntas salen de tu guía de estudio.')}</p>
+          <div class="row"><a class="btn sm" href="#/notes/${s.id}">${T(s.lang, 'Attach notes first', 'Primero adjuntar apuntes')}</a></div></div>`
       : `<span class="pill ok">${T(s.lang, 'All notes attached', 'Apuntes completos')}</span>`;
+    document.getElementById('go').textContent = miss.length ? T(s.lang, 'Start without notes ⏱', 'Empezar sin apuntes ⏱') : T(s.lang, 'Start exam ⏱', 'Empezar examen ⏱');
   };
   document.getElementById('sub').onchange = renderMissing; renderMissing();
   document.getElementById('go').onclick = async (e) => {
