@@ -56,6 +56,15 @@ async function subjects() {
 }
 async function subject(id) { return (await subjects()).find((s) => s.id === id); }
 
+async function discardExam(id, lang) {
+  if (!confirm(T(lang, 'Discard this exam? It will be deleted and can\'t be recovered.', '¿Descartar este examen? Se borra y no se puede recuperar.'))) return false;
+  const { data, error } = await sb.rpc('discard_exam', { p_exam: id });
+  if (error || !data) { toast(error ? error.message : T(lang, 'It can\'t be discarded while Claude is grading it.', 'No se puede descartar mientras Claude lo califica.')); return false; }
+  try { localStorage.removeItem('exam-start-' + id); } catch {}
+  toast(T(lang, 'Exam discarded', 'Examen descartado'));
+  return true;
+}
+
 // ---------- router ----------
 const routes = [
   [/^#\/?$/, viewHome],
@@ -161,9 +170,10 @@ async function viewHome() {
   h(`<div class="spread"><div><h1>Hi! Ready to study?</h1>
         <p class="muted">${next ? `Next exam: <b>${esc(next.name)}</b> — ${fmtDate(next.exam_date)} (${daysUntil(next.exam_date) === 0 ? 'today' : daysUntil(next.exam_date) === 1 ? 'tomorrow' : 'in ' + daysUntil(next.exam_date) + ' days'})` : 'All exams are done. 🎉'}</p></div>
         <a class="btn primary" href="#/exam/new">New exam</a></div>
-      ${open.map((e) => `<div class="card spread" style="margin-bottom:14px"><span>You have an exam in progress (${esc(subs.find((s) => s.id === e.subject_id)?.name)}).</span><a class="btn sm primary" href="#/exam/${e.id}">Continue</a></div>`).join('')}
+      ${open.map((e) => `<div class="card spread" style="margin-bottom:14px"><span>You have an exam in progress (${esc(subs.find((s) => s.id === e.subject_id)?.name)}).</span><span class="row"><button class="btn sm ghost" data-discard="${e.id}">Discard</button><a class="btn sm primary" href="#/exam/${e.id}">Continue</a></span></div>`).join('')}
       ${pending.map((e) => `<div class="card spread" style="margin-bottom:14px"><span>Claude is grading your ${esc(subs.find((s) => s.id === e.subject_id)?.name)} exam…</span><a class="btn sm" href="#/results/${e.id}">See status</a></div>`).join('')}
       <div class="grid">${cards}</div>`);
+  $app.querySelectorAll('[data-discard]').forEach((b) => (b.onclick = async () => { if (await discardExam(b.dataset.discard, 'en')) viewHome(); }));
 }
 
 // ---------- plan ----------
@@ -336,7 +346,7 @@ async function viewExam(examId) {
   let cur = 0;
 
   h(`<div class="exam-bar"><div><b>${esc(s.name)}</b> <span class="muted small">· ${qs.length} ${T(lang, 'questions', 'preguntas')}</span></div>
-      <div class="row"><span class="timer" id="tm">0:00</span><button class="btn sm primary" id="sub">${T(lang, 'Submit exam', 'Entregar examen')}</button></div></div>
+      <div class="row"><span class="timer" id="tm">0:00</span><button class="btn sm ghost" id="disc">${T(lang, 'Discard', 'Descartar')}</button><button class="btn sm primary" id="sub">${T(lang, 'Submit exam', 'Entregar examen')}</button></div></div>
     <div class="qnav" id="nav"></div>
     <div class="card stack" id="qc"></div>`);
 
@@ -387,6 +397,7 @@ async function viewExam(examId) {
     location.hash = '#/results/' + examId;
   }
   document.getElementById('sub').onclick = submit;
+  document.getElementById('disc').onclick = async () => { if (await discardExam(examId, lang)) location.hash = '#/'; };
   show(0);
 }
 
@@ -427,7 +438,7 @@ async function viewResults(examId) {
     const avg = Math.round(arr.reduce((a, b) => a + b, 0) / arr.length);
     return `<tr><td>${esc(topicName[tid] || '')}</td><td><b class="score-${scoreClass(avg)}">${avg}</b></td><td class="muted">${arr.length}</td></tr>`;
   }).join('');
-  h(`<div class="row" style="margin-bottom:12px"><a class="btn sm ghost" href="#/">← Home</a><a class="btn sm" href="#/guide/${s.id}">${T(lang, 'Guide', 'Guía')}</a><a class="btn sm primary" href="#/exam/new/${s.id}">${T(lang, 'New exam', 'Nuevo examen')}</a></div>
+  h(`<div class="row" style="margin-bottom:12px"><a class="btn sm ghost" href="#/">← Home</a><a class="btn sm" href="#/guide/${s.id}">${T(lang, 'Guide', 'Guía')}</a><a class="btn sm primary" href="#/exam/new/${s.id}">${T(lang, 'New exam', 'Nuevo examen')}</a><button class="btn sm ghost" id="disc">${T(lang, 'Discard exam', 'Descartar examen')}</button></div>
     <div class="card stack">
       <div class="spread"><div><div class="muted">${esc(s.name)} · ${new Date(exam.submitted_at).toLocaleString()}</div>
         <div class="score-big score-${scoreClass(sc)}">${sc}<span style="font-size:1.4rem" class="muted">/100</span></div></div>
@@ -443,6 +454,7 @@ async function viewResults(examId) {
         ${q.feedback ? `<div><div class="small muted">${T(lang, 'Feedback', 'Comentarios')}</div><div>${esc(q.feedback)}</div></div>` : ''}
         ${q.model_answer && (q.score ?? 0) < 100 ? `<div><div class="small muted">${T(lang, 'Model answer', 'Respuesta modelo')}</div><div class="model-box">${esc(q.model_answer)}</div></div>` : ''}
       </div>`).join('')}</div>`);
+  document.getElementById('disc').onclick = async () => { if (await discardExam(examId, lang)) location.hash = '#/history'; };
 }
 
 // ---------- history ----------
@@ -459,9 +471,10 @@ async function viewHistory() {
       ${list.map((e) => `<tr><td>${new Date(e.started_at).toLocaleDateString()}</td>
         <td>${e.status === 'graded' ? `<b class="score-${scoreClass(Number(e.score))}">${Number(e.score)}</b>` : `<span class="pill">${e.status.replace('_', ' ')}</span>`}</td>
         <td>${e.elapsed_seconds ? fmtTime(e.elapsed_seconds) : '—'}</td><td>${e.question_count}</td>
-        <td><a href="#/${e.status === 'in_progress' ? 'exam' : 'results'}/${e.id}">Open</a></td></tr>`).join('')}</table></div>`;
+        <td class="row"><a href="#/${e.status === 'in_progress' ? 'exam' : 'results'}/${e.id}">Open</a>${e.status !== 'grading' ? `<button class="btn sm ghost" data-discard="${e.id}" aria-label="Discard exam">✕</button>` : ''}</td></tr>`).join('')}</table></div>`;
   }).join('');
   h(`<h1>History</h1><div class="stack">${blocks || '<p class="muted">No exams yet. <a href="#/exam/new">Take your first one</a>.</p>'}</div>`);
+  $app.querySelectorAll('[data-discard]').forEach((b) => (b.onclick = async () => { if (await discardExam(b.dataset.discard, 'en')) viewHistory(); }));
 }
 
 // ---------- settings ----------
