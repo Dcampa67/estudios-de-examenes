@@ -145,7 +145,7 @@ async function viewHome() {
     const c = { yes: 0, almost: 0, no: 0 };
     topics.forEach((t) => { const v = progMap[t.id]; if (v) c[v]++; });
     const pct = (n) => (topics.length ? (n / topics.length) * 100 : 0);
-    const needPhotos = topics.filter((t) => t.photo_request);
+    const needPhotos = s.notes_closed ? [] : topics.filter((t) => t.photo_request);
     const withPhotos = new Set((photos || []).filter((p) => p.subject_id === s.id).map((p) => p.topic_id));
     const missing = needPhotos.filter((t) => !withPhotos.has(t.id)).length;
     const graded = (exams || []).filter((e) => e.subject_id === s.id && e.status === 'graded');
@@ -234,7 +234,7 @@ async function viewGuide(id) {
       div.className = 'notes-inline';
       div.innerHTML = mine.length
         ? `📷 <b>${T(lang, 'My notes', 'Mis apuntes')}</b> (${mine.length})${thumbsHtml(mine, urls)}`
-        : topic.photo_request
+        : topic.photo_request && !s.notes_closed
           ? `📷 ${T(lang, 'No notes yet for this topic.', 'Todavía no hay apuntes de este tema.')} <a href="#/notes/${id}">${T(lang, 'Attach them', 'Agrégalos')}</a>`
           : '';
       if (div.innerHTML) el.replaceWith(div); else el.remove();
@@ -264,13 +264,13 @@ async function viewNotes(id) {
   const lang = s.lang;
   const { data: photos } = await sb.from('note_photos').select('id, topic_id, path, file_name').eq('subject_id', id).eq('period', PERIOD).order('created_at');
   const urls = await signedUrls((photos || []).map((p) => p.path));
-  const rows = s.topics.filter((t) => t.photo_request).map((t) => {
+  const rows = s.topics.filter((t) => (s.notes_closed ? (photos || []).some((p) => p.topic_id === t.id) : t.photo_request)).map((t) => {
     const mine = (photos || []).filter((p) => p.topic_id === t.id);
     return `<div class="topic-row">
       <div class="spread"><b>${t.idx}. ${esc(t.title)}</b>${mine.length ? `<span class="pill ok">${mine.length} ${T(lang, 'attached', 'adjuntas')}</span>` : `<span class="pill warn">${T(lang, 'Missing', 'Falta')}</span>`}</div>
-      <div class="small muted">${esc(t.photo_request)}</div>
+      ${s.notes_closed ? '' : `<div class="small muted">${esc(t.photo_request)}</div>`}
       ${mine.length ? thumbsHtml(mine, urls) : ''}
-      <div><label class="btn sm file-btn">＋ ${T(lang, 'Attach files', 'Adjuntar archivos')}<input type="file" multiple accept="image/*,application/pdf" data-topic="${t.id}"></label></div>
+      ${s.notes_closed ? '' : `<div><label class="btn sm file-btn">＋ ${T(lang, 'Attach files', 'Adjuntar archivos')}<input type="file" multiple accept="image/*,application/pdf" data-topic="${t.id}"></label></div>`}
     </div>`;
   }).join('');
   h(`<div class="row" style="margin-bottom:12px"><a class="btn sm ghost" href="#/">← Home</a><a class="btn sm" href="#/guide/${id}">${T(lang, 'Guide', 'Guía')}</a></div>
@@ -282,9 +282,15 @@ async function viewNotes(id) {
       const files = [...inp.files]; if (!files.length) return;
       toast(T(lang, 'Uploading…', 'Subiendo…'), 60000);
       for (const f of files) {
-        const safe = f.name.replace(/[^\w.-]+/g, '_');
+        const blob = await shrinkImage(f);
+        const safe = f.name.replace(/[^\w.-]+/g, '_').replace(/\.(heic|heif|png|webp)$/i, '.jpg');
         const path = `${user.id}/${id}/${inp.dataset.topic}-${Date.now()}-${safe}`;
-        const up = await sb.storage.from('apuntes').upload(path, f, { contentType: f.type || undefined });
+        let up;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          up = await sb.storage.from('apuntes').upload(path, blob, { contentType: blob.type || undefined, upsert: true });
+          if (!up.error) break;
+          await new Promise((r) => setTimeout(r, 1500 * attempt));
+        }
         if (up.error) { toast('Upload failed: ' + up.error.message); return; }
         const { error } = await sb.from('note_photos').insert({ user_id: user.id, subject_id: id, topic_id: Number(inp.dataset.topic), period: PERIOD, path, file_name: f.name });
         if (error) { toast('Save failed: ' + error.message); return; }
@@ -293,6 +299,20 @@ async function viewNotes(id) {
       viewNotes(id);
     };
   });
+}
+
+// Resize big photos in the browser so uploads are fast (max 2200px, JPEG 0.8). PDFs go as-is.
+async function shrinkImage(file) {
+  if (!file.type.startsWith('image/') || file.size < 700 * 1024) return file;
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, 2200 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    const out = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.8));
+    return out && out.size < file.size ? out : file;
+  } catch { return file; }
 }
 
 // ---------- new exam ----------
@@ -312,7 +332,7 @@ async function viewNewExam(preselect) {
   const renderMissing = () => {
     const s = subs.find((x) => x.id === document.getElementById('sub').value);
     const have = new Set((photos || []).filter((p) => p.subject_id === s.id).map((p) => p.topic_id));
-    const miss = s.topics.filter((t) => t.photo_request && !have.has(t.id));
+    const miss = s.notes_closed ? [] : s.topics.filter((t) => t.photo_request && !have.has(t.id));
     document.getElementById('miss').innerHTML = miss.length
       ? `<div class="notes-inline"><b>${T(s.lang, 'Notes missing', 'Faltan apuntes')}</b> ${T(s.lang, '— the system asks for:', '— el sistema pide:')}<ul>${miss.map((t) => `<li>${esc(t.photo_request)}</li>`).join('')}</ul>
           <p class="small muted">${T(s.lang, 'You can still take the exam now: the questions come from your study guide.', 'Puedes hacer el examen ahora: las preguntas salen de tu guía de estudio.')}</p>

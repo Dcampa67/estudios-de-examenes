@@ -8,7 +8,14 @@ How to use this guide: read each section, look at the examples and the ⚠️ **
 
 ## 1. What is Social Studies?
 
-**Definition:** Social Studies is the study of **people and society**: how people live, how they get along with each other, how they organize themselves, and how they interact with the places where they live — in the past and in the present.
+📓 **Your teacher's definition (from your notes):**
+> **Social Studies is the observation and analysis of society, or groups of individuals that live and work together in space, time, and how they relate to each other.**
+
+- **Society** (noun) = a **group of people that live and work together** and **interact constantly**. Example: Mexico City — even people you never meet (the driver who brings bread to the supermarket) affect your life. There are **societies inside societies**.
+- **Social** (adjective) = something **related to society**.
+- **Studies** = plural of **study**.
+
+**In simpler words:** Social Studies is the study of **people and society**: how people live, how they get along with each other, how they organize themselves, and how they interact with the places where they live — in the past and in the present.
 
 It is not just one subject. It is a group of subjects together:
 
@@ -59,6 +66,16 @@ There are two big branches:
 ---
 
 ## 3. Latitude, Longitude, the Equator, and the Prime Meridian
+
+### Cartography (from your notes)
+- **Cartography** = the **science or practice of making maps** — the art and science of graphically representing a geographical area, usually on a flat surface (a map or chart).
+- The word comes from **charta** (Latin: *a piece of paper*) + **graphein** (Greek: *to draw / write*).
+- Basic concepts your teacher listed: **1. Cartography · 2. Latitude and longitude** (imaginary lines called **parallels** and **meridians**) **· 3. Cartographic projections** (different ways to draw maps).
+
+> 🚨 **CAREFUL — there's a mistake in your notes!** Your notebook says *"horizontal lines are longitude and vertical lines are latitude"* and that longitude lines are *"drawn from east to west"*. **It's the other way around:**
+> - **Latitude** = **horizontal** lines (parallel to the Equator), they run east–west.
+> - **Longitude** = **vertical** lines (from pole to pole), they run north–south, and go up to **180°** east and west.
+> Fix it in your notebook so you don't study it wrong!
 
 Imagine the Earth covered in a grid of invisible lines. That grid lets us find any place.
 
@@ -153,6 +170,19 @@ Imagine the Earth covered in a grid of invisible lines. That grid lets us find a
 - Each projection chooses what to keep correct and what to sacrifice. **No projection is perfect.**
 - Only a **globe** shows the Earth without distortion (because it's round too).
 
+### 📓 The projections your teacher taught
+**Cartographic projection** = a **2-dimensional** representation of the Earth's **3-dimensional** shape.
+
+| Projection | Who / when | ✅ Advantage | ❌ Disadvantage | Looks like |
+|---|---|---|---|---|
+| **Azimuthal** | — | **Useful for the poles** | Distorts far from the center | A circle centered on a pole |
+| **Gall-Peters** | Described by **James Gall** in **1855**, made popular by **Arno Peters** in the **1970s** | **Maintains (keeps) the area** — countries have their true size | **Distorts shapes** (your notes: areas above the ~46th parallel look stretched/squashed) | Continents look long and stretched |
+| **Mercator** | Drawn by **Gerardus Mercator** (**1569**) | **Maintains shapes** (and directions — great for navigating) | **Distorts area** (things near the poles look way too big) | A rectangle with a straight grid |
+
+**The 4 families of projections** (from the sheet in your notebook): **Cylindric · Pseudocylindric · Conic · Planar**.
+
+🧠 Trick: **Gall-Peters = area** (true **size**) · **Mercator = shape** · **Azimuthal = poles**.
+
 **Example:** on many world maps, **Greenland looks as big as Africa**, but Africa is really about **14 times bigger**. That's distortion of **size** — places near the poles look bigger than they are.
 
 ⚠️ **Twists:**
@@ -174,6 +204,17 @@ Imagine the Earth covered in a grid of invisible lines. That grid lets us find a
 | **Thematic map** | **One specific topic (theme)** | Population map, climate map, rainfall map, map of COVID cases, map of languages | "**Theme** = ONE topic" |
 | **Navigational map** | Helps you **travel / find a route** | Nautical charts for ships, airplane charts, road maps, Google Maps / Waze | "**Navigate** = get from A to B" |
 | **Topographic map** | The **shape and elevation** of the land (how high or low it is) using **contour lines** | Maps for hikers, maps of mountains and volcanoes | "**Topo** = the ups and downs" |
+
+### 📓 More details from your notes
+- **Reference maps** show general info: **political boundaries (borders)**, **cities and roads**, **physical features (rivers, mountains)**. Common examples: **road maps** and **atlases**.
+- **Thematic maps** focus on a specific **theme or data distribution**. Types:
+  - **Choropleth map** — uses **colors** to show data (e.g., population by state in different shades).
+  - **Dot distribution map** — uses **dots** to show where things are.
+  - **Flow map** — uses arrows/lines to show **movement** (e.g., migration).
+- **Navigational maps** are designed for **navigation and wayfinding**:
+  - **Nautical charts** help **sailors** navigate waters.
+  - **Aeronautical charts** help guide **pilots**.
+  - **Transit maps** show **subway or bus** systems.
 
 **Contour lines (for topographic maps):**
 - Each line connects points at the **same height**.
@@ -346,6 +387,26 @@ Grouped by region so it's easier to picture on the map.
 - **"TUXTLA — Chiapas"** → both have a "**T**" and a "**CH**" sound... Tux-tla, Chia-pas.
 - **"MÉRIDA — Yucatán"** → the white city.
 - **"CHETUMAL — Quintana Roo"** → Cancún is for tourists, **Chetumal** is for the government.
+
+### 📓 From your notes
+- Your teacher's list counts **32**, including **CDMX** (number 2 in your list).
+- In your notebook, **Morelos** has no capital written — it's **Cuernavaca**. Write it in!
+
+### 🌎 Bonus: country capitals (also in your notes)
+| Country | Capital |
+|---|---|
+| Spain | Madrid |
+| Peru | Lima |
+| Russia | Moscow |
+| Brazil | Brasília |
+| Cape Verde | Praia |
+| United Kingdom (England) | London |
+| USA | Washington, D.C. |
+| **Canada** | **Ottawa** |
+| Mexico | Mexico City |
+| Chile | Santiago |
+
+⚠️ **Twist:** your notes say *"Alaska: Ottawa"* — but **Alaska is a state of the USA**. **Ottawa is the capital of Canada.** Brazil's capital is **Brasília**, not Rio de Janeiro or São Paulo.
 
 ### 📅 How to study them (suggested)
 1. **Day 1:** learn the 12 easy ones (same name) — 10 minutes, you'll get them fast.
