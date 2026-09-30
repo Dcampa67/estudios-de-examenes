@@ -234,67 +234,6 @@ Imagine the Earth covered in a grid of invisible lines. That grid lets us find a
 
 ---
 
-## 7. Biomes
-
-**Biome** = a large area of the Earth with a similar **climate**, **plants**, and **animals**. Climate (temperature + rain) decides which biome it is.
-
-### 🌴 Tropical Rainforest
-- **Climate:** hot and **very wet all year** (lots of rain, often more than 2,000 mm per year). No real winter.
-- **Location:** near the **Equator** — Amazon (South America), Congo (Africa), Southeast Asia. **In Mexico:** Selva Lacandona (Chiapas).
-- **Plants:** tall trees, vines, orchids. It has **layers**: emergent layer (tallest trees) → canopy (the "roof") → understory → forest floor (dark, little sunlight).
-- **Animals:** jaguars, monkeys, toucans, frogs, snakes, millions of insects.
-- **Key fact:** it has the **most biodiversity** (most kinds of living things) of any biome. It produces lots of oxygen.
-- **Threat:** deforestation.
-
-### 🏜️ Desert
-- **Climate:** **very little rain** — less than **250 mm per year**. That's the definition!
-- **Location:** Sahara (Africa), **Sonoran and Chihuahuan deserts (Mexico)**, Atacama (Chile).
-- **Plants:** cactus, agave, shrubs. Adaptations: thick stems that **store water**, spines instead of leaves (to lose less water), long or wide roots.
-- **Animals:** snakes, lizards, scorpions, coyotes, camels. Many are **nocturnal** (active at night to avoid heat).
-- **Temperature:** very hot days and **cold nights** (no clouds to keep the heat in).
-- ⚠️ **Twist:** a desert is defined by **low rain**, **not** by heat. **Antarctica is the largest desert in the world** — and it's cold!
-
-### 🌾 Grasslands
-- **Climate:** **medium rain** — more than a desert, **not enough for a forest**. Dry season + wet season.
-- **Two kinds:**
-  - **Savanna (tropical grassland):** warm all year, grass with **scattered trees** — Africa (lions, zebras, giraffes, elephants).
-  - **Temperate grassland:** hot summers, cold winters, almost no trees — called **prairies** (USA), **pampas** (Argentina), **steppes** (Russia/Asia). Animals: bison, prairie dogs.
-- **Plants:** mostly grasses. **Fires** and **grazing animals** keep trees from growing.
-- **Human use:** very fertile soil → great for farming (wheat, corn) and cattle.
-
-### ❄️ Tundra
-- **Climate:** the **coldest** biome. Very cold, long winters, **short cool summers**, little rain.
-- **Location:** near the **Arctic** (Alaska, Canada, Russia, Greenland). **Alpine tundra** = on top of very high mountains (even in Mexico, near the peaks of volcanoes like the Pico de Orizaba).
-- **Key word: Permafrost** = ground that stays **frozen all year** under the surface. Because of it, **trees can't grow** (roots can't go deep).
-- **Plants:** mosses, lichens, small shrubs, grasses — all **short**.
-- **Animals:** polar bears, arctic foxes, caribou/reindeer, snowy owls. Many **migrate** or have thick fur/fat.
-
-### 🌊 Mangroves
-- **What:** forests of trees that grow in **salty (salt) water** on tropical and subtropical **coasts**, where rivers meet the sea.
-- **Location:** tropical coasts all over the world. **Mexico has one of the largest areas of mangroves in the world** (Yucatán Peninsula, Campeche, Nayarit, Chiapas).
-- **Plants:** mangrove trees with **prop roots** (stilt roots) that stick up out of the water/mud, and roots that help them breathe and filter salt.
-- **Animals:** fish, crabs, shrimp, crocodiles, birds (flamingos, pelicans).
-- **Why they're important:**
-  1. **Protect the coast** from hurricanes, waves, and erosion (like a natural wall).
-  2. Are a **nursery** for baby fish and sea animals.
-  3. Store a lot of carbon (help against climate change).
-- ⚠️ **Twist:** most trees die in salt water — mangroves are special because they **can live in salt water**.
-
-### Quick comparison
-| Biome | Temperature | Rain | Trees? | Key word |
-|---|---|---|---|---|
-| Tropical rainforest | Hot | Very high | Yes, tall, in layers | Biodiversity |
-| Desert | Hot days / cold nights (or cold) | Very low (<250 mm) | Almost none | Adaptation to save water |
-| Grassland | Warm or hot/cold seasons | Medium | Few (savanna) or none | Grass, grazing, fires |
-| Tundra | Very cold | Low | **No** | Permafrost |
-| Mangrove | Warm | High, near the sea | Yes, in salt water | Prop roots, coast protection |
-
-📷 **Apuntes:** _(pending — attach photos)_
-
-**Have I mastered this?** ☐ Yes ☐ Almost ☐ No
-
----
-
 ## 8. The States of Mexico and Their Capitals
 
 **Key facts first:**
@@ -437,7 +376,6 @@ Grouped by region so it's easier to picture on the map.
 | 4. Coordinates | ☐ | ☐ | ☐ |
 | 5. Map projections | ☐ | ☐ | ☐ |
 | 6. Types of maps | ☐ | ☐ | ☐ |
-| 7. Biomes | ☐ | ☐ | ☐ |
 | 8. States of Mexico and capitals | ☐ | ☐ | ☐ |
 
 - **All "No":** You should still study considerably.

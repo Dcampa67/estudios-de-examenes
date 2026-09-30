@@ -20,7 +20,7 @@ Regla: el día antes de cada examen, **repaso completo** de esa materia, y un po
 ## Día por día
 
 ### Martes 29 sep (hoy) — ~2 h
-- ☐ **Social Studies:** secciones 1 a 7 (definiciones, latitud/longitud, coordenadas, proyecciones, mapas, biomas) — 1 h
+- ☐ **Social Studies:** secciones 1 a 6 (definiciones, latitud/longitud, coordenadas, proyecciones, mapas) — 1 h
 - ☐ **Social Studies:** estados y capitales — los 12 fáciles + 2 regiones de los difíciles — 45 min
 - ☐ **Religión:** leer pág. 12–15 una vez, sin memorizar — 15 min
 
